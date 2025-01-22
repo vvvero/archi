@@ -1,0 +1,178 @@
+<html>
+	<head>
+		<title>
+			My Führung
+		</title>
+		<style>
+			.ergebnisObjekt {
+				margin: 5px;
+				width: 100px;
+				float: left;
+				height: 150px;
+				border: black;
+				padding: 5px;
+			}
+			.pharao {
+  				background: antiquewhite;
+			}
+			.tiere {
+				background: lightgreen;
+			}
+			.architektur {
+				background: cornflowerblue;
+			}
+			ul {
+				width:200px;
+				list-style-type: none;
+				margin: 0;
+			}
+			li {
+				padding:10px;
+			}
+		</style>
+		<script language="javascript" type="text/javascript">
+
+			var objekte = [
+				{
+					"thema": "tiere",
+					"name": "Statue Stier",
+					"beschreibung": "tbd",
+					"prio": 1
+				},
+				{
+					"thema": "tiere",
+					"name": "bemalte Vase",
+					"beschreibung": "tbd",
+					"prio": 3
+				},
+				{
+					"thema": "pharao",
+					"name": "Staue des Echnaton",
+					"beschreibung": "tbd",
+					"prio": 1
+				},
+				{
+					"thema": "pharao",
+					"name": "Sarkophag",
+					"beschreibung": "tbd",
+					"prio": 2
+				},
+				{
+					"thema": "pharao",
+					"name": "Papyrus",
+					"beschreibung": "tbd",
+					"prio": 3
+				},
+				{
+					"thema": "architektur",
+					"name": "Relief",
+					"beschreibung": "tbd",
+					"prio": 1
+				},
+				{
+					"thema": "architektur",
+					"name": "Modell einer Pyramide",
+					"beschreibung": "tbd",
+					"prio": 2
+				}
+			]  
+
+			prioThema = null
+
+			function interestChanged() {
+				document.getElementById("ergebnisObjekte").innerHTML = ""
+				console.log("---")
+				console.log("Eingaben geändert")
+				console.log("---")
+				var inputs = document.getElementsByName("interests");
+				var checkedThemen = 0   
+		        for (var i = 0; i < inputs.length; i++) {   
+		            if(inputs[i].checked == true){
+		            	document.getElementById("ergebnis").style.display = "block"
+		            	checkedThemen++
+		            	console.log(inputs[i].value)	
+		            	listeObjekte(inputs[i].value)
+		            }
+		        }   
+		        if(checkedThemen == 0){
+		        	document.getElementById("ergebnis").style.display = "none"
+		        }
+			}
+
+			function listeObjekte(thema){
+				for(var i=0; i<objekte.length; i++){
+					var objekt = objekte[i]
+					if(objekt.thema == thema){
+						console.log(" - " + objekt.name)
+						
+						if(prioThema == null && objekt.prio < 3){
+							addObjekt(objekt)
+						}else if(prioThema == objekt.thema){
+							addObjekt(objekt)
+						}else if(prioThema != objekt.thema && objekt.prio == 1){
+							addObjekt(objekt)
+						}
+					}
+				}
+			}
+
+
+			function addObjekt(objekt){
+				var div = document.createElement("div")
+				div.className = "ergebnisObjekt"
+				div.classList.add(objekt.thema);
+				var name = document.createElement("p")
+				name.innerHTML = objekt.name
+				var beschreibung = document.createElement("p")
+				beschreibung.innerHTML = objekt.beschreibung
+				div.appendChild(name)
+				var prio = document.createElement("p")
+				prio.innerHTML = objekt.prio
+				div.appendChild(prio)
+				div.appendChild(beschreibung)
+				document.getElementById("ergebnisObjekte").appendChild(div)
+			}
+
+
+			function setPrio(elem, thema){
+				var prioSetters = document.getElementsByClassName("prioSetter")
+				for(var i=0; i<prioSetters.length; i++){
+					prioSetters[i].innerHTML = "🤍"
+				}
+				if(prioThema != thema){
+					elem.innerHTML = "❤️"
+					prioThema = thema
+				}else{
+					prioThema = null
+				}
+				interestChanged()
+			}
+
+		</script>
+	</head>
+	<body onload="interestChanged()">
+		<h1>Willkommen</h1>
+		<h2>Was interessiert Dich?</h2>
+		<ul>
+			<li class="tiere">
+				<span class="prioSetter" onClick="setPrio(this, 'tiere')">🤍</span>
+				<input name="interests" value="tiere" type="checkbox" id="ct" onChange="interestChanged()"/>
+				<label for="ct"> Tiere</label>
+			</li>
+			<li class="pharao">
+				<span class="prioSetter" onClick="setPrio(this, 'pharao')">🤍</span>
+				<input name="interests"  value="pharao" type="checkbox" id="cp" onChange="interestChanged()"/>
+				<label for="cp"> Pharao</label>
+			</li>
+			<li class="architektur">
+				<span class="prioSetter" onClick="setPrio(this, 'architektur')">🤍</span>
+				<input name="interests"  value="architektur" type="checkbox" id="ca" onChange="interestChanged()"/>
+				<label for="ca"> Architektur</label>
+			</li>
+		</ul>
+		<div id="ergebnis">
+			<h2>Deine fertige Führung?</h2>
+			<div id="ergebnisObjekte"></div>
+		</div>
+	</body>
+</html>
