@@ -11,7 +11,13 @@
 				height: 150px;
 				border: black;
 				padding: 5px;
+				overflow: scroll;
 			}
+
+			.ergebnisObjekt .name {
+				font-weight: bold;
+			}
+
 			.pharao {
   				background: antiquewhite;
 			}
@@ -25,6 +31,7 @@
 				width:200px;
 				list-style-type: none;
 				margin: 0;
+				padding: 9;
 			}
 			li {
 				padding:10px;
@@ -35,45 +42,57 @@
 			var objekte = [
 				{
 					"thema": "tiere",
-					"name": "Statue Stier",
-					"beschreibung": "tbd",
+					"name": "Statue eines Stier",
+					"beschreibung": "Diese Statue ist ein Meisterwerk ihrer Zeit. Sie wurde für den Pharao Tutanchamun geschaffen.",
 					"prio": 1
 				},
 				{
 					"thema": "tiere",
+					"name": "Spiegel",
+					"beschreibung": "Diesen Spiegel verzieren ein Paar Schlangen, die gleichzeitig den Griff bilden.",
+					"prio": 2
+				},
+				{
+					"thema": "tiere",
 					"name": "bemalte Vase",
-					"beschreibung": "tbd",
+					"beschreibung": "Diese Vase schmückt eine Gruppe Kühe. Über die Vase ist leider nur wenig bekannt.",
 					"prio": 3
 				},
 				{
 					"thema": "pharao",
-					"name": "Staue des Echnaton",
-					"beschreibung": "tbd",
+					"name": "Statue des Echnaton",
+					"beschreibung": "Der berühmte Pharao Echnaton, den viele sicher auch über seine Frau Nofretete kennen, war eigentlich",
 					"prio": 1
 				},
 				{
 					"thema": "pharao",
 					"name": "Sarkophag",
-					"beschreibung": "tbd",
+					"beschreibung": "Dieser Sarg gehörte dem Kind eines Schreibers am Hofe der Hatschepsut.",
 					"prio": 2
 				},
 				{
 					"thema": "pharao",
 					"name": "Papyrus",
-					"beschreibung": "tbd",
+					"beschreibung": "Auf diesem Papyrus lässt sich eine Zeichnung von Tuthmosis 3. finden. ",
 					"prio": 3
 				},
 				{
 					"thema": "architektur",
 					"name": "Relief",
-					"beschreibung": "tbd",
+					"beschreibung": "Dieses Relief fand man bei einer Ausgrabung 1943. Leider ist nicht viel über den Fundort bekannt.",
 					"prio": 1
 				},
 				{
 					"thema": "architektur",
-					"name": "Modell einer Pyramide",
-					"beschreibung": "tbd",
+					"name": "Grabanlage",
+					"beschreibung": "Dies ist eine Rekonstruktion einer Grabanlage eines Schreibers.",
 					"prio": 2
+				},
+				{
+					"thema": "architektur",
+					"name": "Modell einer Pyramide",
+					"beschreibung": "Dies ist ein Modell des Pyramidenkomplex von Sahure. Sahure war ein Pharao, der früher lebte.",
+					"prio": 3
 				}
 			]  
 
@@ -122,6 +141,7 @@
 				div.className = "ergebnisObjekt"
 				div.classList.add(objekt.thema);
 				var name = document.createElement("p")
+				name.className = "name"
 				name.innerHTML = objekt.name
 				var beschreibung = document.createElement("p")
 				beschreibung.innerHTML = objekt.beschreibung
